@@ -1,6 +1,4 @@
 const request = require('request');
-const _ = require('underscore');
-const qs = require('querystring');
 
 module.exports = class HypothesisAPI {
 	constructor (APIkey) {
@@ -16,7 +14,7 @@ module.exports = class HypothesisAPI {
 	}
 
 	deleteAnnotation (id) {
-		let options = _.extend(this.options, { url: 'https://hypothes.is/api/annotations/' + id });
+		let options = Object.assign(this.options, { url: 'https://hypothes.is/api/annotations/' + id });
 		return new Promise((resolve, reject) => {
 			request.delete(options, (error, response, body) => {
 			  if (!error && response.statusCode == 200) {
@@ -28,7 +26,7 @@ module.exports = class HypothesisAPI {
 	}
 
 	getAnnotation (id) {
-		let options = _.extend(this.options, { url: 'https://hypothes.is/api/annotations/' + id });
+		let options = Object.assign(this.options, { url: 'https://hypothes.is/api/annotations/' + id });
 		return new Promise((resolve, reject) => {
 			request(options, (error, response, body) => {
 			  if (!error && response.statusCode == 200) {
@@ -40,7 +38,7 @@ module.exports = class HypothesisAPI {
 	}
 
 	getProfile () {
-		let options = _.extend(this.options, { url: 'https://hypothes.is/api/profile' });
+		let options = Object.assign(this.options, { url: 'https://hypothes.is/api/profile' });
 		return new Promise((resolve, reject) => {
 			request(options, (error, response, body) => {
 			  if (!error && response.statusCode == 200) {
@@ -53,7 +51,7 @@ module.exports = class HypothesisAPI {
 
 	// Not working yet.
 	newAnnotation (annotation) {
-		let options = _.extend(this.options, { 
+		let options = Object.assign(this.options, {
 			url: 'https://hypothes.is/api/annotations/',
 			body: JSON.stringify(annotation)
 		});
@@ -68,7 +66,7 @@ module.exports = class HypothesisAPI {
 	}
 
 	search (query) {
-		let options = _.extend(this.options, { qs: query, url: 'https://hypothes.is/api/search' });
+		let options = Object.assign(this.options, { qs: query, url: 'https://hypothes.is/api/search' });
 		return new Promise((resolve, reject) => {
 			request(options, (error, response, body) => {
 			  if (!error && response.statusCode == 200) {
@@ -80,7 +78,7 @@ module.exports = class HypothesisAPI {
 	}
 
 	updateAnnotation (id, annotation) {
-		let options = _.extend(this.options, { 
+		let options = Object.assign(this.options, { 
 			url: 'https://hypothes.is/api/annotations/' + id,
 			body: JSON.stringify(annotation)
 		});
